@@ -19,14 +19,25 @@ else:
         status = game['status']
         home_score = game['home_score']
         away_score = game['away_score']
+        current_inning = game['current_inning']
+        inning_state = game['inning_state']
+        venue_name = game['venue_name']
 
-        col1, col2, col3 = st.columns([3, 1, 1])
+        col1, col2, col3, col4 = st.columns([3, 1, 1, 1])
         with col1:
             st.write(f"**{away}** @ **{home}**")
         with col2:
             st.write(f"{away_score} - {home_score}")
         with col3:
             st.write(status)
+        with col4:
+            # Only show inning state and current inning when game is in progress
+            if isinstance(status, str) and status.lower() == 'in progress':
+                st.write(f"{inning_state} {current_inning}")
+            else:
+                st.write("")
+        
+            
 
 # ── STANDINGS ────────────────────────────────────────────
 st.header("Standings")
